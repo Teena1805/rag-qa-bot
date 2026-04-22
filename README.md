@@ -173,18 +173,19 @@ streamlit run src/app.py
 
 ## Example Queries
 
-Below are 5 sample questions (answers depend on your document set):
+Below are 5 sample questions based on the documents in this project:
 
-| # | Question | Expected answer theme |
-|---|----------|----------------------|
-| 1 | "What are the main causes of climate change?" | Greenhouse gases, fossil fuels |
-| 2 | "How does machine learning differ from traditional programming?" | Data-driven vs rule-based |
-| 3 | "What were the key outcomes of the Paris Agreement?" | 1.5°C target, NDCs |
-| 4 | "Explain the concept of transformer architecture in NLP." | Attention mechanism, encoder-decoder |
-| 5 | "What is the GDP of Germany in 2023?" | Numerical figure with source |
+| # | Question | Expected Answer Theme |
+|---|----------|-----------------------|
+| 1 | "What is a healthy lifestyle?" | Proper nutrition, regular exercise, adequate sleep, stress management |
+| 2 | "What are the steps in the machine learning process?" | Data Collection, Preprocessing, Feature Selection, Model Training, Evaluation, Deployment |
+| 3 | "What is entrepreneurship?" | Starting and managing a business, risk-taking, innovation |
+| 4 | "How does digital technology impact daily life?" | Communication, education, work, social interaction |
+| 5 | "What is the difference between supervised and unsupervised learning?" | Labeled vs unlabeled data, classification vs clustering |
 
-Unanswerable example (bot should refuse):
-> "What is the weather in Paris today?"
+### Unanswerable Example (bot will refuse):
+> "What is the current stock price of Apple?"
+
 → *"I could not find an answer to that question in the provided documents."*
 
 ---
