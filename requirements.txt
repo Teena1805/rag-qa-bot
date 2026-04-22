@@ -1,0 +1,15 @@
+# ── Core (required) ──────────────────────────────────────────
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+pypdf>=4.2.0
+python-docx>=1.1.2
+python-dotenv>=1.0.1
+rich>=13.7.1
+numpy>=1.26.0
+streamlit>=1.35.0
+
+# ── Optional LLM backends ─────────────────────────────────────
+# Ollama is the DEFAULT — install from https://ollama.com (no pip package needed)
+# Uncomment below only if you set LLM_PROVIDER=openai or LLM_PROVIDER=anthropic
+# openai>=1.30.0
+# anthropic>=0.28.0
