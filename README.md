@@ -175,13 +175,13 @@ streamlit run src/app.py
 
 Below are 5 sample questions based on the documents in this project:
 
-| # | Question | Expected Answer Theme |
-|---|----------|-----------------------|
-| 1 | "What is a healthy lifestyle?" | Proper nutrition, regular exercise, adequate sleep, stress management |
-| 2 | "What are the steps in the machine learning process?" | Data Collection, Preprocessing, Feature Selection, Model Training, Evaluation, Deployment |
-| 3 | "What is entrepreneurship?" | Starting and managing a business, risk-taking, innovation |
-| 4 | "How does digital technology impact daily life?" | Communication, education, work, social interaction |
-| 5 | "What is the difference between supervised and unsupervised learning?" | Labeled vs unlabeled data, classification vs clustering |
+| # | Question | Expected Answer Theme | Source File  |
+|---|----------|-----------------------|--------------|
+| 1 | "What is a healthy lifestyle?" | Proper nutrition, regular exercise, adequate sleep, stress management | Healthy Lifestyle.txt |
+| 2 | "What are the steps in the machine learning process?" | Data Collection, Preprocessing, Feature Selection, Model Training, Evaluation, Deployment | Introduction to Machine Learning.pdf |
+| 3 | "What is entrepreneurship?" | Starting and managing a business, risk-taking, innovation | Entrepreneurship.docx |
+| 4 | "How does digital technology impact daily life?" | Communication, education, work, social interaction | Digital Life and Technology.docx |
+| 5 | "What is the difference between supervised and unsupervised learning?" | Labeled vs unlabeled data, classification vs clustering | Introduction to Machine Learning.pdf |
 
 ### Unanswerable Example (bot will refuse):
 > "What is the current stock price of Apple?"
