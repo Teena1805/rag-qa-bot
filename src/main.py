@@ -20,6 +20,7 @@ try:
     from rich.panel import Panel
     from rich.rule import Rule
     from rich.table import Table
+    from rich.text import Text
     RICH = True
 except ImportError:
     RICH = False
@@ -53,44 +54,80 @@ def _best_source(retrieved):
 
 
 def display_answer(question: str, answer: str, retrieved, elapsed: float):
+    # Check if the bot couldn't answer
+    cannot_answer = "I could not find an answer" in answer
+
     if RICH:
         console = Console()
+
+        # ── Question ──────────────────────────────────────────────────────────
         console.print(Rule("[bold]Question[/bold]", style="green"))
         console.print(f"[bold green]{question}[/bold green]\n")
 
+        # ── Answer ────────────────────────────────────────────────────────────
         console.print(Rule("[bold]Answer[/bold]", style="blue"))
         console.print(answer)
 
-        # ── Single best source row ────────────────────────────────────────────
-        console.print(Rule("[bold]Source[/bold]", style="yellow"))
-        table = Table(show_header=True, header_style="bold yellow")
-        table.add_column("Source",    min_width=25)
-        table.add_column("Page",      width=6)
-        table.add_column("Relevance", width=10)
-        table.add_column("Preview",   min_width=40)
+        # ── Source table (only if answered) ───────────────────────────────────
+        if not cannot_answer:
+            console.print(Rule("[bold]Source[/bold]", style="yellow"))
+            table = Table(show_header=True, header_style="bold yellow")
+            table.add_column("Source",    min_width=25)
+            table.add_column("Page",      width=6)
+            table.add_column("Relevance", width=10)
+            table.add_column("Preview",   min_width=40)
 
-        best = _best_source(retrieved)
-        if best:
-            chunk, score = best
-            preview = chunk.text[:80].replace("\n", " ") + ("…" if len(chunk.text) > 80 else "")
-            table.add_row(
-                chunk.source,
-                str(chunk.page_hint) if chunk.page_hint else "—",
-                f"{score:.3f}",
-                preview,
-            )
-        console.print(table)
-        console.print(f"[dim]⏱  {elapsed:.2f}s[/dim]\n")
+            best = _best_source(retrieved)
+            if best:
+                chunk, score = best
+                preview = chunk.text[:80].replace("\n", " ") + ("…" if len(chunk.text) > 80 else "")
+                table.add_row(
+                    chunk.source,
+                    str(chunk.page_hint) if chunk.page_hint else "—",
+                    f"{score:.3f}",
+                    preview,
+                )
+            console.print(table)
+
+            # ── Retrieved Chunks (full text) ──────────────────────────────────
+            console.print(Rule("[bold]Retrieved Chunks[/bold]", style="magenta"))
+            for i, (chunk, score) in enumerate(retrieved, 1):
+                page_str = f" | Page {chunk.page_hint}" if chunk.page_hint else ""
+                console.print(
+                    f"\n[bold magenta][Chunk {i}][/bold magenta] "
+                    f"[bold]{chunk.source}{page_str}[/bold] "
+                    f"[dim](relevance: {score:.3f})[/dim]"
+                )
+                console.print(
+                    Panel(
+                        chunk.text,
+                        border_style="magenta",
+                        padding=(0, 1),
+                    )
+                )
+
+        console.print(f"\n[dim]⏱  {elapsed:.2f}s[/dim]\n")
 
     else:
         print(f"\nQuestion: {question}")
         print("-" * 40)
         print(f"Answer:\n{answer}")
-        best = _best_source(retrieved)
-        if best:
-            chunk, score = best
-            page = f"p.{chunk.page_hint}" if chunk.page_hint else "—"
-            print(f"\nSource: {chunk.source} ({page}) | score={score:.3f}")
+
+        if not cannot_answer:
+            best = _best_source(retrieved)
+            if best:
+                chunk, score = best
+                page = f"p.{chunk.page_hint}" if chunk.page_hint else "—"
+                print(f"\nSource: {chunk.source} ({page}) | score={score:.3f}")
+
+            print("\n--- Retrieved Chunks ---")
+            for i, (chunk, score) in enumerate(retrieved, 1):
+                page_str = f" | Page {chunk.page_hint}" if chunk.page_hint else ""
+                print(f"\n[Chunk {i}] {chunk.source}{page_str} (relevance: {score:.3f})")
+                print("-" * 40)
+                print(chunk.text)
+                print("-" * 40)
+
         print(f"\n⏱  {elapsed:.2f}s\n")
 
 
