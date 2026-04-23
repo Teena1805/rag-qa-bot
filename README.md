@@ -4,6 +4,12 @@ A Retrieval-Augmented Generation (RAG) pipeline that lets you ask natural langua
 
 ---
 
+## Demo Video
+
+[Click here to watch](https://www.loom.com/share/d8439003640b4a0cb5d22aa239a6c9d9)
+
+---
+
 ## Tech Stack
 
 | Component | Library / Tool | Version |
